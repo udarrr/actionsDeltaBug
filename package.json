@@ -6,8 +6,7 @@
   "scripts": {
     "tsc1": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio_bug": "wdio run ./wdio.conf.ts --spec ./test/specs/test.bug.ts",
-    "wdio_fix": "wdio run ./wdio.conf.ts --spec ./test/specs/test.fix.ts"
+    "wdio_bug": "wdio run ./wdio.conf.ts --spec ./test/specs/test.bug.ts"
   },
   "author": "",
   "license": "ISC",

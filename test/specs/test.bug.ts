@@ -1,31 +1,14 @@
-const { compute } = require('../../src/scrollIntoViewCalculations')
-const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf'
-
 describe('deltaX in actions bug reproducible an example', () => {
   it('should login with valid credentials', async () => {
     browser.overwriteCommand(
       'scrollIntoView',
-      async function (_origin) {
-        const coords = (await browser.execute(
-          compute,
-          {
-            //@ts-ignore
-            [ELEMENT_KEY]: this.elementId, // w3c compatible
-            //@ts-ignore
-            ELEMENT: this.elementId, // jsonwp compatible
-          },
-          {
-            scrollMode: 'if-needed',
-            block: 'center',
-            inline: 'nearest',
-          }
-        )) as any
+      async function () {
         await browser
           .action('wheel')
           .scroll({
             duration: 0,
-            deltaX: coords.left,
-            deltaY: coords.top,
+            deltaX: 0,
+            deltaY: 1000,
             //@ts-ignore
             origin: this,
           })
@@ -56,6 +39,8 @@ describe('deltaX in actions bug reproducible an example', () => {
       const elm = await browser.$(scrollType)
       await elm.scrollIntoView()
       await browser.pause(2500)
+
+      expect(await elm.isDisplayedInViewport()).toBe(false)
     }
   })
 })
